@@ -46,6 +46,31 @@ func NewQueue() Queue {
 	return Queue{Head: head, Tail: tail}
 }
 
+/**
+ *
+ * check if the value already exits in the queue
+ * if exist remove and add at the beginning
+ * else add at the beginning
+ **/
+func (c *Cache) Check(str string) {
+
+	//create empty node
+	node := &Node{}
+
+	//check if value exists
+	if val, ok := c.Hash[str]; ok {
+		//remove val
+		node = c.Remove(val)
+	} else {
+		node = &Node{Val: str}
+	}
+
+	//add node
+	c.Add(node)
+
+	c.Hash[str] = node
+}
+
 func main() {
 	fmt.Println("Start cache")
 	cache := NewCache()

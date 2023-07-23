@@ -95,6 +95,10 @@ func (c *Cache) Remove(n *Node) *Node {
 
 }
 
+/**
+ *
+ * func to add node to queue
+ **/
 func (c *Cache) Add(n *Node) {
 	fmt.Printf("add : %s\n", n.Val)
 
@@ -116,6 +120,38 @@ func (c *Cache) Add(n *Node) {
 		c.Remove(c.Queue.Tail.Left)
 	}
 
+}
+
+/**
+ *
+ * func to display cache
+ **/
+func (c *Cache) Display() {
+	c.Queue.Display()
+}
+
+/**
+ *
+ * display method for queue struct
+ **/
+func (q *Queue) Display() {
+	//get the first node
+	node := q.Head.Right
+	fmt.Printf("%d - [", q.Length)
+
+	//loop arround the queue
+	for i := 0; i < q.Length; i++ {
+
+		fmt.Printf("{%s}", node.Val)
+		if i < q.Length-1 {
+			fmt.Printf("<-->")
+		}
+
+		//get the next node
+		node = node.Right
+	}
+
+	fmt.Printf("]")
 }
 
 func main() {

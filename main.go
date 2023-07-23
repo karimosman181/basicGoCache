@@ -5,9 +5,15 @@ import (
 )
 
 type Node struct {
+	Left  *Node
+	Val   string
+	Right *Node
 }
 
 type Queue struct {
+	Head   *Node
+	Tail   *Node
+	Length int
 }
 
 type Cache struct {
@@ -30,7 +36,14 @@ func NewCache() Cache {
  * func to create a queue
  **/
 func NewQueue() Queue {
+	head := &Node{}
+	tail := &Node{}
 
+	//create an empty queue where the head right points to the tail and tail left points to head
+	head.Right = tail
+	tail.Left = head
+
+	return Queue{Head: head, Tail: tail}
 }
 
 func main() {

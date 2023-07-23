@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+const SIZE = 5
+
 type Node struct {
 	Left  *Node
 	Val   string
@@ -90,6 +92,29 @@ func (c *Cache) Remove(n *Node) *Node {
 	delete(c.Hash, n.Val)
 
 	return n
+
+}
+
+func (c *Cache) Add(n *Node) {
+	fmt.Printf("add : %s\n", n.Val)
+
+	//store the current first node in tmp
+	tmp := c.Queue.Head.Right
+
+	// connect the new node to the beginning of the queue
+	c.Queue.Head.Right = n
+	n.Left = c.Queue.Head
+
+	//connect the previous first node with the new node
+	n.Right = tmp
+	tmp.Left = n
+
+	c.Queue.Length++
+
+	//check if the lenght of the queue doesn't exceed the defined size
+	if c.Queue.Length > SIZE {
+		c.Remove(c.Queue.Tail.Left)
+	}
 
 }
 
